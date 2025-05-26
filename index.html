@@ -70,28 +70,53 @@
 <body>
 
   <div class="container">
-    <img src="https://iamjacobflint.com/assets/avatar.jpg" alt="Avatar" class="avatar" />
+    <img src="https://djguide.iamjacobflint.com/assets/avatar.jpg" alt="Avatar" class="avatar" />
 
     <h2>Get the Free DJ Gear Guide 🎧</h2>
     <p>Enter your email and I’ll send you the full breakdown</p>
 
-    <form action="https://formspree.io/f/xgvkjqan" method="POST">
-      <input 
-        type="email" 
-        name="email" 
-        placeholder="you@email.com" 
-        required
-        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        title="Please enter a valid email address"
-      />
-      <input type="hidden" name="_redirect" value="https://iamjacobflint.com/thanks.html" />
-      <button type="submit">Send Me the Guide</button>
-    </form>
+  <form id="djguide-form">
+  <input 
+    type="email" 
+    name="email" 
+    placeholder="you@email.com" 
+    required
+    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+  />
+  <button type="submit">Send Me the Guide</button>
+</form>
+<script>
+document.getElementById("djguide-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch("https://formspree.io/f/xgvkjqan", {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json"
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      window.location.href = "https://djguide.iamjacobflint.com/thanks.html";
+    } else {
+      alert("Oops! There was a problem. Please try again.");
+    }
+  })
+  .catch(error => {
+    alert("Something went wrong. Please try again.");
+  });
+});
+</script>
 
     <div class="disclaimer">
       I’ll never spam or share your info. Unsubscribe anytime.
     </div>
   </div>
 
+  
 </body>
 </html>
